@@ -7,7 +7,6 @@ public section.
 *"* public components of class ZCL_ANT_FIRST_WORKER
 *"* do not include other source files here!!!
 
-  interfaces ZIF_ANT .
   interfaces ZIF_ANT_WORKER .
 protected section.
 *"* protected components of class ZCL_ANT_FIRST_WORKER

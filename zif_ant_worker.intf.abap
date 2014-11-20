@@ -3,7 +3,7 @@ interface ZIF_ANT_WORKER
   public .
 
 
-  methods PICK_UP .
-  methods DROP .
-  methods ATTACH .
+  methods TICK
+    importing
+      !IO_CMD type ref to ZCL_ANT_CMD_WORKER .
 endinterface.

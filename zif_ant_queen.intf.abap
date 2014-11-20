@@ -3,6 +3,7 @@ interface ZIF_ANT_QUEEN
   public .
 
 
-  methods SPAWN_WORKER .
-  methods SPAWN_QUEEN .
+  methods TICK
+    importing
+      !IO_CMD type ref to ZCL_ANT_CMD_QUEEN .
 endinterface.
