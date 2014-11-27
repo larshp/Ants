@@ -17,14 +17,14 @@ public section.
   types:
     TT_RACES type standard table of st_race .
 
-  constants GC_NW type TY_DIRECTION value 1. "#EC NOTEXT
-  constants GC_N type TY_DIRECTION value 2. "#EC NOTEXT
-  constants GC_NE type TY_DIRECTION value 3. "#EC NOTEXT
-  constants GC_E type TY_DIRECTION value 4. "#EC NOTEXT
-  constants GC_SE type TY_DIRECTION value 5. "#EC NOTEXT
-  constants GC_S type TY_DIRECTION value 6. "#EC NOTEXT
-  constants GC_SW type TY_DIRECTION value 7. "#EC NOTEXT
-  constants GC_W type TY_DIRECTION value 8. "#EC NOTEXT
+  constants C_NW type TY_DIRECTION value 1. "#EC NOTEXT
+  constants C_N type TY_DIRECTION value 2. "#EC NOTEXT
+  constants C_NE type TY_DIRECTION value 3. "#EC NOTEXT
+  constants C_E type TY_DIRECTION value 4. "#EC NOTEXT
+  constants C_SE type TY_DIRECTION value 5. "#EC NOTEXT
+  constants C_S type TY_DIRECTION value 6. "#EC NOTEXT
+  constants C_SW type TY_DIRECTION value 7. "#EC NOTEXT
+  constants C_W type TY_DIRECTION value 8. "#EC NOTEXT
 
   methods CONSTRUCTOR .
   methods PLAY .
@@ -62,25 +62,25 @@ METHOD play.
 
   DATA: ls_race       LIKE LINE OF mt_races,
         lt_queens     TYPE TABLE OF REF TO zif_ant_queen,
-        lo_queen      TYPE REF TO zif_ant_queen,
+        li_queen      TYPE REF TO zif_ant_queen,
         lo_cmd_queen  TYPE REF TO zcl_ant_cmd_queen,
         lo_cmd_worker TYPE REF TO zcl_ant_cmd_worker,
         lt_workers    TYPE TABLE OF REF TO zif_ant_worker,
         lo_map        TYPE REF TO zcl_ants_map,
-        lo_worker     TYPE REF TO zif_ant_worker.
+        li_worker     TYPE REF TO zif_ant_worker.
 
 
   READ TABLE mt_races INDEX 1 INTO ls_race.
 
 
-  CREATE OBJECT lo_queen
+  CREATE OBJECT li_queen
     TYPE (ls_race-queen).
-  APPEND lo_queen TO lt_queens.
+  APPEND li_queen TO lt_queens.
 
   DO 10 TIMES.
-    CREATE OBJECT lo_worker
+    CREATE OBJECT li_worker
       TYPE (ls_race-worker).
-    APPEND lo_worker TO lt_workers.
+    APPEND li_worker TO lt_workers.
   ENDDO.
 
 ****
@@ -97,16 +97,16 @@ METHOD play.
 
   DO 1000 TIMES.
 
-    LOOP AT lt_queens INTO lo_queen.
+    LOOP AT lt_queens INTO li_queen.
       CREATE OBJECT lo_cmd_queen
         TYPE zcl_ant_cmd_queen.
-      lo_queen->tick( lo_cmd_queen ).
+      li_queen->tick( lo_cmd_queen ).
     ENDLOOP.
 
-    LOOP AT lt_workers INTO lo_worker.
+    LOOP AT lt_workers INTO li_worker.
       CREATE OBJECT lo_cmd_worker
         TYPE zcl_ant_cmd_worker.
-      lo_worker->tick( lo_cmd_worker ).
+      li_worker->tick( lo_cmd_worker ).
     ENDLOOP.
 
   ENDDO.

@@ -17,7 +17,7 @@ public section.
     importing
       !IV_HEIGHT type I
       !IV_WIDTH type I .
-  methods PLACE_HIVE .
+  methods PLACE_COLONY .
   class ZCL_ANTS_MAP definition load .
   methods GET_INFO
     importing
@@ -69,7 +69,28 @@ ENDMETHOD.
 
 METHOD get_info.
 
+  IF iv_x < 0
+      OR iv_x > mv_width
+      OR iv_y < 0
+      OR iv_y > mv_height.
+* todo, wall?
+  ENDIF.
 
+  READ TABLE mt_map INTO rs_info WITH KEY x = iv_x y = iv_y.
+
+ENDMETHOD.
+
+
+METHOD place_colony.
+
+  DATA: lv_x TYPE i,
+        lv_y TYPE i.
+
+
+  lv_x = mo_rwidth->get_next( ).
+  lv_y = mo_rheight->get_next( ).
+
+* todo
 
 ENDMETHOD.
 
@@ -99,20 +120,6 @@ METHOD place_food.
     ENDIF.
 
   ENDDO.
-
-ENDMETHOD.
-
-
-METHOD place_hive.
-
-  DATA: lv_x TYPE i,
-        lv_y TYPE i.
-
-
-  lv_x = mo_rwidth->get_next( ).
-  lv_y = mo_rheight->get_next( ).
-
-* todo
 
 ENDMETHOD.
 ENDCLASS.
