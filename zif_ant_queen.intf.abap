@@ -5,5 +5,7 @@ interface ZIF_ANT_QUEEN
 
   methods TICK
     importing
-      !IO_CMD type ref to ZCL_ANT_CMD_QUEEN .
+      !IO_CMD type ref to ZCL_ANT_CMD_QUEEN
+    raising
+      ZCX_ANTS .
 endinterface.

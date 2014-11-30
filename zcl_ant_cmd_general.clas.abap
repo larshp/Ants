@@ -33,6 +33,16 @@ protected section.
   data MV_DONE type ABAP_BOOL .
   data MV_GUID type SYSUUID_C22 .
 
+  class ZCL_ANTS_MAP definition load .
+  class ZCL_ANTS definition load .
+  methods TRANSLATE
+    importing
+      !IS_POSITION type ZCL_ANTS_MAP=>ST_POSITION
+      !IV_DIRECTION type ZCL_ANTS=>TY_DIRECTION
+    returning
+      value(RS_POSITION) type ZCL_ANTS_MAP=>ST_POSITION
+    raising
+      ZCX_ANTS .
   methods TURN_DONE
     raising
       ZCX_ANTS .
@@ -86,7 +96,10 @@ ENDMETHOD.
 
 METHOD move.
 
-  DATA: ls_position TYPE zcl_ants_map=>st_position.
+  DATA: ls_info     TYPE zcl_ants_map=>st_info,
+        ls_position TYPE zcl_ants_map=>st_position,
+        lv_colony   TYPE i,
+        ls_new_pos  TYPE zcl_ants_map=>st_position.
 
   FIELD-SYMBOLS: <ls_queen> LIKE LINE OF mo_map->mt_queens,
                  <ls_worker> LIKE LINE OF mo_map->mt_workers.
@@ -98,20 +111,47 @@ METHOD move.
         textid = zcx_ants=>m000.
   ENDIF.
 
+* todo, refactor?
+
   READ TABLE mo_map->mt_queens ASSIGNING <ls_queen> WITH KEY guid = mv_guid.
   IF sy-subrc <> 0.
     READ TABLE mo_map->mt_workers ASSIGNING <ls_worker> WITH KEY guid = mv_guid.
     IF sy-subrc = 0.
-      ls_position = <ls_queen>-position.
+      ls_position = <ls_worker>-position.
+      lv_colony = <ls_worker>-colony.
     ENDIF.
   ELSE.
     ls_position = <ls_queen>-position.
+    lv_colony = <ls_queen>-colony.
   ENDIF.
   IF sy-subrc <> 0.
     RAISE EXCEPTION TYPE zcx_ants
       EXPORTING
         textid = zcx_ants=>m003.
   ENDIF.
+
+  ls_new_pos = translate( is_position  = ls_position
+                          iv_direction = iv_direction ).
+
+  ls_info = mo_map->get_info( iv_colony   = lv_colony
+                              is_position = ls_new_pos ).
+  IF ls_info-wall = abap_true.
+    RAISE EXCEPTION TYPE zcx_ants
+      EXPORTING
+        textid = zcx_ants=>m004.
+  ENDIF.
+  IF ls_info-enemy = abap_true.
+    RAISE EXCEPTION TYPE zcx_ants
+      EXPORTING
+        textid = zcx_ants=>m005.
+  ENDIF.
+
+  turn_done( ).
+
+ENDMETHOD.
+
+
+METHOD translate.
 
   CASE iv_direction.
     WHEN zcl_ants=>c_e.
@@ -129,10 +169,6 @@ METHOD move.
         EXPORTING
           textid = zcx_ants=>m001.
   ENDCASE.
-
-* todo, check target is not occupied by other colony or wall
-
-  turn_done( ).
 
 ENDMETHOD.
 

@@ -12,15 +12,16 @@ public section.
 
   types:
     BEGIN OF st_position,
-             x TYPE i,
-             y TYPE i,
-           END OF st_position .
+               x TYPE i,
+               y TYPE i,
+             END OF st_position .
   types:
     BEGIN OF st_info,
-        position TYPE st_position,
-        food TYPE i,
-        wall TYPE abap_bool,
-      END OF st_info .
+          position TYPE st_position,
+          food     TYPE i,
+          wall     TYPE abap_bool,
+          enemy    TYPE abap_bool,
+        END OF st_info .
 
   methods RENDER_JSON
     returning
@@ -39,8 +40,8 @@ public section.
   class ZCL_ANTS_MAP definition load .
   methods GET_INFO
     importing
-      !IV_X type I
-      !IV_Y type I
+      !IV_COLONY type I default 0
+      !IS_POSITION type ZCL_ANTS_MAP=>ST_POSITION
     returning
       value(RS_INFO) type ZCL_ANTS_MAP=>ST_INFO .
   methods PLACE_FOOD
@@ -78,6 +79,13 @@ protected section.
   data MT_MAP type TT_MAP .
   data MT_QUEENS type TT_QUEEN .
   data MT_WORKERS type TT_WORKER .
+
+  methods EVENT_DIE
+    importing
+      !IV_GUID type SYSUUID_C22 .
+  methods EVENT_MOVE
+    importing
+      !IV_GUID type SYSUUID_C22 .
 private section.
 *"* private components of class ZCL_ANTS_MAP
 *"* do not include other source files here!!!
@@ -108,17 +116,28 @@ METHOD constructor.
 ENDMETHOD.
 
 
+method EVENT_DIE.
+endmethod.
+
+
+method EVENT_MOVE.
+endmethod.
+
+
 METHOD get_info.
 
-  IF iv_x < 0
-      OR iv_x > mv_width
-      OR iv_y < 0
-      OR iv_y > mv_height.
+  IF is_position-x < 0
+      OR is_position-x > mv_width
+      OR is_position-y < 0
+      OR is_position-y > mv_height.
     rs_info-wall = abap_true.
     RETURN.
   ENDIF.
 
-  READ TABLE mt_map INTO rs_info WITH KEY position-x = iv_x position-y = iv_y.
+  READ TABLE mt_map INTO rs_info
+    WITH KEY position-x = is_position-x position-y = is_position-y.
+
+* todo, fill enemy flag
 
 ENDMETHOD.
 
@@ -222,7 +241,11 @@ METHOD tick.
       EXPORTING
         iv_guid = <ls_queen>-guid
         io_map  = me.
-    <ls_queen>-queen->tick( lo_cmd_queen ).
+    TRY.
+        <ls_queen>-queen->tick( lo_cmd_queen ).
+      CATCH zcx_ants.
+        event_die( <ls_queen>-guid ).
+    ENDTRY.
   ENDLOOP.
 
   LOOP AT mt_workers ASSIGNING <ls_worker>.
@@ -231,7 +254,11 @@ METHOD tick.
       EXPORTING
         iv_guid = <ls_worker>-guid
         io_map  = me.
-    <ls_worker>-worker->tick( lo_cmd_worker ).
+    TRY.
+        <ls_worker>-worker->tick( lo_cmd_worker ).
+      CATCH zcx_ants.
+        event_die( <ls_worker>-guid ).
+    ENDTRY.
   ENDLOOP.
 
 ENDMETHOD.

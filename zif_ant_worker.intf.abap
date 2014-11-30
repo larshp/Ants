@@ -5,5 +5,7 @@ interface ZIF_ANT_WORKER
 
   methods TICK
     importing
-      !IO_CMD type ref to ZCL_ANT_CMD_WORKER .
+      !IO_CMD type ref to ZCL_ANT_CMD_WORKER
+    raising
+      ZCX_ANTS .
 endinterface.
