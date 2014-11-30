@@ -27,7 +27,9 @@ public section.
   constants C_W type TY_DIRECTION value 8. "#EC NOTEXT
 
   methods CONSTRUCTOR .
-  methods PLAY .
+  methods PLAY
+    raising
+      CX_STATIC_CHECK .
 protected section.
 *"* protected components of class ZCL_ANTS
 *"* do not include other source files here!!!
@@ -60,28 +62,11 @@ ENDMETHOD.
 
 METHOD play.
 
-  DATA: ls_race       LIKE LINE OF mt_races,
-        lt_queens     TYPE TABLE OF REF TO zif_ant_queen,
-        li_queen      TYPE REF TO zif_ant_queen,
-        lo_cmd_queen  TYPE REF TO zcl_ant_cmd_queen,
-        lo_cmd_worker TYPE REF TO zcl_ant_cmd_worker,
-        lt_workers    TYPE TABLE OF REF TO zif_ant_worker,
-        lo_map        TYPE REF TO zcl_ants_map,
-        li_worker     TYPE REF TO zif_ant_worker.
+  DATA: ls_race LIKE LINE OF mt_races,
+        lo_map  TYPE REF TO zcl_ants_map.
 
 
   READ TABLE mt_races INDEX 1 INTO ls_race.
-
-
-  CREATE OBJECT li_queen
-    TYPE (ls_race-queen).
-  APPEND li_queen TO lt_queens.
-
-  DO 10 TIMES.
-    CREATE OBJECT li_worker
-      TYPE (ls_race-worker).
-    APPEND li_worker TO lt_workers.
-  ENDDO.
 
 ****
 
@@ -93,22 +78,14 @@ METHOD play.
   lo_map->place_food( iv_amount = 10
                       iv_places = 10 ).
 
+  lo_map->place_colony( ls_race ).
+
 ****
 
   DO 1000 TIMES.
+    lo_map->tick( ).
 
-    LOOP AT lt_queens INTO li_queen.
-      CREATE OBJECT lo_cmd_queen
-        TYPE zcl_ant_cmd_queen.
-      li_queen->tick( lo_cmd_queen ).
-    ENDLOOP.
-
-    LOOP AT lt_workers INTO li_worker.
-      CREATE OBJECT lo_cmd_worker
-        TYPE zcl_ant_cmd_worker.
-      li_worker->tick( lo_cmd_worker ).
-    ENDLOOP.
-
+    lo_map->render_json( ).
   ENDDO.
 
 ***

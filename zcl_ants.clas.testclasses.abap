@@ -12,7 +12,7 @@ CLASS lcl_test DEFINITION FOR TESTING
   PRIVATE SECTION.
 * ================
 
-    METHODS: play FOR TESTING.
+    METHODS: play FOR TESTING RAISING cx_static_check.
 
 ENDCLASS.       "lcl_Test
 

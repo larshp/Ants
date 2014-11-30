@@ -8,9 +8,15 @@ public section.
 *"* public components of class ZCL_ANT_CMD_WORKER
 *"* do not include other source files here!!!
 
-  methods PICK_UP .
-  methods DROP .
-  methods ATTACK .
+  methods PICK_UP
+    raising
+      ZCX_ANTS .
+  methods DROP
+    raising
+      ZCX_ANTS .
+  methods ATTACK
+    raising
+      ZCX_ANTS .
 protected section.
 *"* protected components of class ZCL_ANT_CMD_WORKER
 *"* do not include other source files here!!!
@@ -24,14 +30,29 @@ ENDCLASS.
 CLASS ZCL_ANT_CMD_WORKER IMPLEMENTATION.
 
 
-method ATTACK.
-endmethod.
+METHOD attack.
+
+* todo
+
+  turn_done( ).
+
+ENDMETHOD.
 
 
-method DROP.
-endmethod.
+METHOD drop.
+
+* todo
+
+  turn_done( ).
+
+ENDMETHOD.
 
 
-method PICK_UP.
-endmethod.
+METHOD pick_up.
+
+* todo
+
+  turn_done( ).
+
+ENDMETHOD.
 ENDCLASS.

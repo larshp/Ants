@@ -7,15 +7,16 @@ class ZCL_ANT_CMD_QUEEN definition
 public section.
 *"* public components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
+
+  methods SPAWN_WORKER
+    raising
+      ZCX_ANTS .
 protected section.
 *"* protected components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
 private section.
 *"* private components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
-
-  methods SPAWN_WORKER .
-  methods SPAWN_QUEEN .
 ENDCLASS.
 
 
@@ -23,10 +24,11 @@ ENDCLASS.
 CLASS ZCL_ANT_CMD_QUEEN IMPLEMENTATION.
 
 
-method SPAWN_QUEEN.
-endmethod.
+METHOD spawn_worker.
 
+* todo
 
-method SPAWN_WORKER.
-endmethod.
+  turn_done( ).
+
+ENDMETHOD.
 ENDCLASS.
