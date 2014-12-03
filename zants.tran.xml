@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v0.2-alpha">
+ <TSTC>
+  <TCODE>ZANTS</TCODE>
+  <PGMNA>ZANTS</PGMNA>
+  <DYPNO>1000</DYPNO>
+  <MENUE></MENUE>
+  <CINFO>80</CINFO>
+  <ARBGB></ARBGB>
+ </TSTC>
+ <TSTCC>
+  <TCODE>ZANTS</TCODE>
+  <S_WEBGUI>Z</S_WEBGUI>
+  <S_WIN32>A</S_WIN32>
+  <S_PLATIN>N</S_PLATIN>
+  <S_SERVICE>TS</S_SERVICE>
+  <S_PERVAS></S_PERVAS>
+  <S_DUMMY></S_DUMMY>
+  <S_DUMMY1></S_DUMMY1>
+  <S_DUMMY2></S_DUMMY2>
+ </TSTCC>
+</abapGit>
