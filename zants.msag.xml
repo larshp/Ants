@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v0.2-alpha">
+ <T100A>
+  <ARBGB>ZANTS</ARBGB>
+  <MASTERLANG></MASTERLANG>
+  <APPLCLASS></APPLCLASS>
+  <RESPUSER></RESPUSER>
+  <LASTUSER></LASTUSER>
+  <LDATE>00000000</LDATE>
+  <LTIME>000000</LTIME>
+  <STEXT>Ants</STEXT>
+ </T100A>
+ <T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>000</MSGNR>
+   <TEXT>Supply direction</TEXT>
+  </T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>001</MSGNR>
+   <TEXT>Invalid direction</TEXT>
+  </T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>002</MSGNR>
+   <TEXT>Turn done</TEXT>
+  </T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>003</MSGNR>
+   <TEXT>Unknown ant</TEXT>
+  </T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>004</MSGNR>
+   <TEXT>Wall</TEXT>
+  </T100>
+  <T100>
+   <SPRSL>E</SPRSL>
+   <ARBGB>ZANTS</ARBGB>
+   <MSGNR>005</MSGNR>
+   <TEXT>Enemy</TEXT>
+  </T100>
+ </T100>
+</abapGit>
