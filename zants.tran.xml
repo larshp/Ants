@@ -19,4 +19,9 @@
   <S_DUMMY1></S_DUMMY1>
   <S_DUMMY2></S_DUMMY2>
  </TSTCC>
+ <TSTCT>
+  <SPRSL>E</SPRSL>
+  <TCODE>ZANTS</TCODE>
+  <TTEXT>Ants</TTEXT>
+ </TSTCT>
 </abapGit>
