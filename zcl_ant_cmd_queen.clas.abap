@@ -1,20 +1,20 @@
-class ZCL_ANT_CMD_QUEEN definition
-  public
-  inheriting from ZCL_ANT_CMD_GENERAL
-  final
-  create public .
+CLASS zcl_ant_cmd_queen DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ant_cmd_general
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 *"* public components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
 
-  methods SPAWN_WORKER
-    raising
-      ZCX_ANTS .
-protected section.
+    METHODS spawn_worker
+      RAISING
+        zcx_ants .
+  PROTECTED SECTION.
 *"* protected components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
-private section.
+  PRIVATE SECTION.
 *"* private components of class ZCL_ANT_CMD_QUEEN
 *"* do not include other source files here!!!
 ENDCLASS.
@@ -24,11 +24,11 @@ ENDCLASS.
 CLASS ZCL_ANT_CMD_QUEEN IMPLEMENTATION.
 
 
-METHOD spawn_worker.
+  METHOD spawn_worker.
 
 * todo
 
-  turn_done( ).
+    turn_done( ).
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.

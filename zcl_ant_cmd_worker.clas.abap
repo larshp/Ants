@@ -1,26 +1,26 @@
-class ZCL_ANT_CMD_WORKER definition
-  public
-  inheriting from ZCL_ANT_CMD_GENERAL
-  final
-  create public .
+CLASS zcl_ant_cmd_worker DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ant_cmd_general
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 *"* public components of class ZCL_ANT_CMD_WORKER
 *"* do not include other source files here!!!
 
-  methods PICK_UP
-    raising
-      ZCX_ANTS .
-  methods DROP
-    raising
-      ZCX_ANTS .
-  methods ATTACK
-    raising
-      ZCX_ANTS .
-protected section.
+    METHODS pick_up
+      RAISING
+        zcx_ants .
+    METHODS drop
+      RAISING
+        zcx_ants .
+    METHODS attack
+      RAISING
+        zcx_ants .
+  PROTECTED SECTION.
 *"* protected components of class ZCL_ANT_CMD_WORKER
 *"* do not include other source files here!!!
-private section.
+  PRIVATE SECTION.
 *"* private components of class ZCL_ANT_CMD_WORKER
 *"* do not include other source files here!!!
 ENDCLASS.
@@ -30,29 +30,29 @@ ENDCLASS.
 CLASS ZCL_ANT_CMD_WORKER IMPLEMENTATION.
 
 
-METHOD attack.
+  METHOD attack.
 
 * todo
 
-  turn_done( ).
+    turn_done( ).
 
-ENDMETHOD.
-
-
-METHOD drop.
-
-* todo
-
-  turn_done( ).
-
-ENDMETHOD.
+  ENDMETHOD.
 
 
-METHOD pick_up.
+  METHOD drop.
 
 * todo
 
-  turn_done( ).
+    turn_done( ).
 
-ENDMETHOD.
+  ENDMETHOD.
+
+
+  METHOD pick_up.
+
+* todo
+
+    turn_done( ).
+
+  ENDMETHOD.
 ENDCLASS.

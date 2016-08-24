@@ -1,17 +1,17 @@
-class ZCL_ANT_FIRST_QUEEN definition
-  public
-  final
-  create public .
+CLASS zcl_ant_first_queen DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 *"* public components of class ZCL_ANT_FIRST_QUEEN
 *"* do not include other source files here!!!
 
-  interfaces ZIF_ANT_QUEEN .
-protected section.
+    INTERFACES zif_ant_queen .
+  PROTECTED SECTION.
 *"* protected components of class ZCL_ANT_FIRST_QUEEN
 *"* do not include other source files here!!!
-private section.
+  PRIVATE SECTION.
 *"* private components of class ZCL_ANT_FIRST_QUEEN
 *"* do not include other source files here!!!
 ENDCLASS.
@@ -21,8 +21,8 @@ ENDCLASS.
 CLASS ZCL_ANT_FIRST_QUEEN IMPLEMENTATION.
 
 
-METHOD zif_ant_queen~tick.
+  METHOD zif_ant_queen~tick.
 
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.

@@ -1,49 +1,49 @@
-class ZCL_ANTS definition
-  public
-  final
-  create public .
+CLASS zcl_ants DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 *"* public components of class ZCL_ANTS
 *"* do not include other source files here!!!
 
-  types TY_DIRECTION type I .
-  types:
-    BEGIN OF st_race,
-           name TYPE string,
-           queen TYPE seoclsname,
-           worker TYPE seoclsname,
-         END OF st_race .
-  types:
-    TT_RACES type standard table of st_race .
+    TYPES ty_direction TYPE i .
+    TYPES:
+      BEGIN OF st_race,
+        name   TYPE string,
+        queen  TYPE seoclsname,
+        worker TYPE seoclsname,
+      END OF st_race .
+    TYPES:
+      tt_races TYPE STANDARD TABLE OF st_race .
 
-  constants C_NW type TY_DIRECTION value 1. "#EC NOTEXT
-  constants C_N type TY_DIRECTION value 2. "#EC NOTEXT
-  constants C_NE type TY_DIRECTION value 3. "#EC NOTEXT
-  constants C_E type TY_DIRECTION value 4. "#EC NOTEXT
-  constants C_SE type TY_DIRECTION value 5. "#EC NOTEXT
-  constants C_S type TY_DIRECTION value 6. "#EC NOTEXT
-  constants C_SW type TY_DIRECTION value 7. "#EC NOTEXT
-  constants C_W type TY_DIRECTION value 8. "#EC NOTEXT
+    CONSTANTS c_nw TYPE ty_direction VALUE 1.               "#EC NOTEXT
+    CONSTANTS c_n TYPE ty_direction VALUE 2.                "#EC NOTEXT
+    CONSTANTS c_ne TYPE ty_direction VALUE 3.               "#EC NOTEXT
+    CONSTANTS c_e TYPE ty_direction VALUE 4.                "#EC NOTEXT
+    CONSTANTS c_se TYPE ty_direction VALUE 5.               "#EC NOTEXT
+    CONSTANTS c_s TYPE ty_direction VALUE 6.                "#EC NOTEXT
+    CONSTANTS c_sw TYPE ty_direction VALUE 7.               "#EC NOTEXT
+    CONSTANTS c_w TYPE ty_direction VALUE 8.                "#EC NOTEXT
 
-  methods CONSTRUCTOR .
-  methods PLAY
-    raising
-      CX_STATIC_CHECK .
-protected section.
+    METHODS constructor .
+    METHODS play
+      RAISING
+        cx_static_check .
+  PROTECTED SECTION.
 *"* protected components of class ZCL_ANTS
 *"* do not include other source files here!!!
-private section.
+  PRIVATE SECTION.
 *"* private components of class ZCL_ANTS
 *"* do not include other source files here!!!
 
-  data MT_RACES type TT_RACES .
+    DATA mt_races TYPE tt_races .
 
-  methods REGISTER_RACE
-    importing
-      !IV_NAME type STRING
-      !IV_QUEEN type SEOCLSNAME
-      !IV_WORKER type SEOCLSNAME .
+    METHODS register_race
+      IMPORTING
+        !iv_name   TYPE string
+        !iv_queen  TYPE seoclsname
+        !iv_worker TYPE seoclsname .
 ENDCLASS.
 
 
@@ -51,42 +51,42 @@ ENDCLASS.
 CLASS ZCL_ANTS IMPLEMENTATION.
 
 
-METHOD constructor.
+  METHOD constructor.
 
-  register_race( iv_name   = 'First Ant'
-                 iv_queen  = 'ZCL_ANT_FIRST_QUEEN'
-                 iv_worker = 'ZCL_ANT_FIRST_WORKER' ).
+    register_race( iv_name   = 'First Ant'
+                   iv_queen  = 'ZCL_ANT_FIRST_QUEEN'
+                   iv_worker = 'ZCL_ANT_FIRST_WORKER' ).
 
-ENDMETHOD.
-
-
-METHOD play.
-
-  DATA: ls_race LIKE LINE OF mt_races,
-        lo_map  TYPE REF TO zcl_ants_map.
+  ENDMETHOD.
 
 
-  READ TABLE mt_races INDEX 1 INTO ls_race.
+  METHOD play.
 
-****
+    DATA: ls_race LIKE LINE OF mt_races,
+          lo_map  TYPE REF TO zcl_ants_map.
 
-  CREATE OBJECT lo_map
-    EXPORTING
-      iv_height = 100
-      iv_width  = 100.
 
-  lo_map->place_food( iv_amount = 10
-                      iv_places = 10 ).
-
-  lo_map->place_colony( ls_race ).
+    READ TABLE mt_races INDEX 1 INTO ls_race.
 
 ****
 
-  DO 1000 TIMES.
-    lo_map->tick( ).
+    CREATE OBJECT lo_map
+      EXPORTING
+        iv_height = 100
+        iv_width  = 100.
 
-    lo_map->render_json( ).
-  ENDDO.
+    lo_map->place_food( iv_amount = 10
+                        iv_places = 10 ).
+
+    lo_map->place_colony( ls_race ).
+
+****
+
+    DO 1000 TIMES.
+      lo_map->tick( ).
+
+      lo_map->render_json( ).
+    ENDDO.
 
 ***
 
@@ -104,20 +104,20 @@ METHOD play.
 * colour/race
 * unique id
 
-ENDMETHOD.
+  ENDMETHOD.
 
 
-METHOD register_race.
+  METHOD register_race.
 
-  DATA: ls_race TYPE st_race.
+    DATA: ls_race TYPE st_race.
 
 
-  ls_race-name   = iv_name.
-  ls_race-queen  = iv_queen.
-  ls_race-worker = iv_worker.
-  APPEND ls_race TO mt_races.
+    ls_race-name   = iv_name.
+    ls_race-queen  = iv_queen.
+    ls_race-worker = iv_worker.
+    APPEND ls_race TO mt_races.
 
 * todo, validate class names vs interfaces
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.
