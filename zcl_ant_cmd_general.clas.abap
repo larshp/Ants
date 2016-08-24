@@ -73,17 +73,12 @@ CLASS ZCL_ANT_CMD_GENERAL IMPLEMENTATION.
 
 
   METHOD is_friendly.
-
-
-
+* todo
   ENDMETHOD.
 
 
   METHOD look.
-
-
-
-
+* todo
   ENDMETHOD.
 
 
